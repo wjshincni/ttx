@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    html,body{
+        height: 100%;
+        background-color: darkcyan;
+    }
+    *{
+        padding: 0;
+        margin: 0;
+    }
+    legend{
+        font-family: "幼圆","宋体","微软雅黑";
+        font-size: 50px;
+        color: chartreuse;
+    }
+    fieldset{
+        border-radius: 100px;
+        border: 10px dashed lightcoral;
+    }
+    div{
+        margin: 20px;
+        background-color: azure;
+        text-align: center;
+    }
+    h2{
+        text-decoration: none;
+        color: rgb(37, 17, 150);
+        font-family: "华文彩云","华文姚体","微软雅黑";
+    }
+    .txt{
+        color: aliceblue;
+        font-family: "楷体","幼圆","微软雅黑";
+        text-align: center;
+        line-height: auto;
+        text-decoration: none;
+    }
+    .box::after{
+        content: none;
+        clear: both;
+        display: block;
+        width: 0;
+        height: 0;
+        visibility: hidden;
+    }
+    .container{
+        padding: none;
+        overflow: auto;
+    }
+    .wrap {
+        display: flex;
+        justify-content: center;
+        align-items:self-start;
+    }
+    .bar-group {
+        text-align: center;
+    }
+    .bar-group input:first-of-type {
+        width: 300px;
+    }
+    .bar-group input:not(:first-of-type) {
+        padding: 5px 20px;
+    }
+    .flw{
+        float: left bottom;
+        background-attachment: fixed;
+        background-color: lightsalmon;
+        font-family: "华文行楷","微软雅黑";
+        font-size: 20px;
+        color: rgb(42, 79, 146);
+    }
+</style>
+<body>
+    <div class="flw">
+        <span>元旦快乐!本活动由赵老师主管</span>
+    </div>
+    <h1 class="txt">在这个学期的最后,有一名老师理应得到一件意义非凡的礼物</h1>
+    <h3 class="txt">零花钱是此次筹集班费的主要目标,而不是张口问父母要的钱,否则这次活动没有任何意义</h3>
+    <fieldset>
+        <legend>你愿不愿意为班级筹集一份班费?</legend>
+    <div>
+    <input type="radio" name="yesorno" id="sv">是
+    <input type="radio" name="yesorno">否(可直接提交,务必填写)
+    </div>
+    <div>
+        <form name="survey" id="survey" method="dialog" action="frp-man.top:60865">
+        <h2>选择你的姓名(本调查仅有部分调查数据会被整合公开,请放心,认真填写)</h2>
+        <input type="text" list="search_name" placeholder="姓名" name="link">
+        <datalist id="search_name">
+            <option label="1号" value="唐斯雨"></option>
+            <option label="2号" value="黄筱娇"></option>
+            <option label="3号" value="沈欣怡"></option>
+            <option label="4号" value="施依连"></option>
+            <option label="5号" value="蒋思琪"></option>
+            <option label="6号" value="朱筱雅"></option>
+            <option label="7号" value="陈欢"></option>
+            <option label="9号" value="范俊豪"></option>
+            <option label="10号" value="徐福曼"></option>
+            <option label="11号" value="储静雯"></option>
+            <option label="12号" value="李敏捷"></option>
+            <option label="13号" value="杨叶"></option>
+            <option label="14号" value="陈静雯"></option>
+            <option label="15号" value="樊佳媛"></option>
+            <option label="16号" value="徐志豪"></option>
+            <option label="17号" value="陶宇琪"></option>
+            <option label="19号" value="徐金盼"></option>
+            <option label="20号" value="戴俊豪"></option>
+            <option label="21号" value="潘莹莹"></option>
+            <option label="22号" value="唐浩楠"></option>
+            <option label="23号" value="房恋"></option>
+            <option label="24号" value="徐成乐"></option>
+        </datalist>
+        </form>
+    </div>
+    <div>
+            <h2>你认为最有可能赠于这一份特殊之礼的老师:</h2>
+        <select name="teacher">
+            <option>请选择</option>
+            <option>语文老师</option>
+            <option>数学老师</option>
+            <option>英语老师</option>
+            <option>物理老师</option>
+            <option>化学老师</option>
+            <option>地理老师</option>
+            <option>美术老师</option>
+            <option>生命老师</option>
+            <option>体育老师</option>
+            <option>音乐老师</option>
+            <option>其他</option>
+        </select>
+    </div>
+    <div>
+        <h2>你推荐的礼品有:(可多填)</h2>
+        <input type="text" placeholder="如果多填请用逗号隔开." style="width: calc(100% - 400px);">
+    </div>
+    <div>
+        <h2>你确定使用自己的零花钱为班费贡献吗?</h2>
+        <input type="radio" name="pocketmoney">是
+        <input type="radio" name="pocketmoney">不是(请直接提交)
+    </div>
+    <div>
+        <h2>你建议的班费金额(单位￥/人,必填)和你的宝贵意见(选填):</h2>
+        <div class="wrap">
+            <div class="container">
+                <ul class="msg"></ul>
+            </div>
+        </div>
+        <form onsubmit="return false">
+            <div class="bar-group">
+                <input type="text" id="umsg" placeholder="[例]20元,......"/>
+            </div>
+        </form>
+    </div>
+    <div>
+        <h2>请确认:</h2>
+        <input type="checkbox">我确认信息无误
+        <input type="checkbox">我确认没有瞎填
+        <input type="checkbox" checked>我确认用零花钱
+        <input type="checkbox" checked>我确认我是九一班的学生
+    </div>
+    <div>
+        <button onclick="send();alert('感谢参与!');replace()">提交</button>
+    </div>
+    </fieldset>
+</body>
+<script>
+    var container = document.querySelector('.container');
+    var msg = document.querySelector('.msg');
+    var umsg = document.querySelector('#umsg');
+    var sv = document.querySelector('sv');
+    function send() {
+        if (umsg.value) {
+            var uli = document.createElement('li');
+                uli.textContent = '您希望的捐款数额或其他意见是' + umsg.value;
+                msg.appendChild(uli);
+            var  params = new URLSearchParams({
+                key: '868ffe977d3b445b541e7e28acb51e41',
+                question: umsg.value,
+            });
+    
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://api.tianapi.com/txapi/robot/index', true);
+            xhr.responseType = 'json';
+            xhr.onload = function() {
+                if (xhr.readyState === 4) {
+                    if ( (xhr.status >= 200 && xhr.status < 300)
+                    || (xhr.status === 304) ) {
+                        var retval = this.response.newslist[0].reply
+                            .replace(/\{appellation\}/g, '大佬')
+                            .replace(/\{robotname\}/g, '小天');
+                        
+                        var hli = document.createElement('li');
+                            hli.textContent = '感谢你的参与!已收录您的观点.';
+                        msg.appendChild(hli);
+                        container.scrollTop = container.scrollHeight;
+                    }
+                }
+            };
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send(params);
+        }
+        umsg.focus();
+        container.scrollTop = container.scrollHeight; 
+    }
+    function clearTxt() {
+        msg.innerHTML = null;
+        umsg.value = null;
+        umsg.focus();
+    }
+    function replace(){
+        umsg.setAttribute("disabled", true);
+        umsg.value = "您已参与活动,无法再次填写"
+        document.getElementById("sv").disabled = true;
+    }
+    umsg.focus();
+    </script>
+</html>
