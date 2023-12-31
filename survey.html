@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Survey</title>
+    <title>Document</title>
 </head>
 <style>
     html,body{
@@ -15,7 +15,7 @@
         margin: 0;
     }
     legend{
-        font-family: "幼圆","宋体","微软雅黑";
+        font-family: "仿宋","宋体","微软雅黑";
         font-size: 50px;
         color: chartreuse;
     }
@@ -31,7 +31,7 @@
     h2{
         text-decoration: none;
         color: rgb(37, 17, 150);
-        font-family: "华文彩云","华文姚体","微软雅黑";
+        font-family: "宋体","华文姚体","微软雅黑";
     }
     .txt{
         color: aliceblue;
@@ -88,38 +88,36 @@
     <input type="radio" name="yesorno">否(可直接提交,务必填写)
     </div>
     <div>
-        <form name="survey" id="survey" method="dialog" action="frp-man.top:60865">
-        <h2>选择你的姓名(本调查仅有部分调查数据会被整合公开,请放心,认真填写)</h2>
-        <input type="list" list="search_name" placeholder="姓名" name="link">
-        <datalist id="search_name">
-            <option label="1号" value="唐斯雨"></option>
-            <option label="2号" value="黄筱娇"></option>
-            <option label="3号" value="沈欣怡"></option>
-            <option label="4号" value="施依连"></option>
-            <option label="5号" value="蒋思琪"></option>
-            <option label="6号" value="朱筱雅"></option>
-            <option label="7号" value="陈欢"></option>
-            <option label="9号" value="范俊豪"></option>
-            <option label="10号" value="徐福曼"></option>
-            <option label="11号" value="储静雯"></option>
-            <option label="12号" value="李敏捷"></option>
-            <option label="13号" value="杨叶"></option>
-            <option label="14号" value="陈静雯"></option>
-            <option label="15号" value="樊佳媛"></option>
-            <option label="16号" value="徐志豪"></option>
-            <option label="17号" value="陶宇琪"></option>
-            <option label="19号" value="徐金盼"></option>
-            <option label="20号" value="戴俊豪"></option>
-            <option label="21号" value="潘莹莹"></option>
-            <option label="22号" value="唐浩楠"></option>
-            <option label="23号" value="房恋"></option>
-            <option label="24号" value="徐成乐"></option>
-        </datalist>
-        </form>
+        <select>
+                <option>请选择</option>
+                <option>唐斯雨</option>
+                <option>黄筱娇</option>
+                <option>沈欣怡</option>
+                <option>施依连</option>
+                <option>蒋思琪</option>
+                <option>朱筱雅</option>
+                <option>陈欢</option>
+                <option>唐天笑</option>
+                <option>范俊豪</option>
+                <option>徐福曼</option>
+                <option>储静雯</option>
+                <option>李敏捷</option>
+                <option>杨叶</option>
+                <option>陈静雯</option>
+                <option>樊佳媛</option>
+                <option>徐志豪</option>
+                <option>陶宇琪</option>
+                <option>徐金盼</option>
+                <option>戴俊豪</option>
+                <option>潘莹莹</option>
+                <option>唐浩楠</option>
+                <option>房恋</option>
+                <option>徐成乐</option>
+        </select>
     </div>
     <div>
-            <h2>你认为最有可能赠于这一份特殊之礼的老师:</h2>
-        <select name="teacher">
+        <h2>你认为最有可能赠于这一份特殊之礼的老师:</h2>
+        <select>
             <option>请选择</option>
             <option>语文老师</option>
             <option>数学老师</option>
@@ -136,7 +134,7 @@
     </div>
     <div>
         <h2>你推荐的礼品有:(可多填)</h2>
-        <input type="text" placeholder="如果多填请用逗号隔开." style="width: calc(100% - 400px);">
+        <input type="text" placeholder="如果多填请用逗号隔开." style="width: 50%;">
     </div>
     <div>
         <h2>你确定使用自己的零花钱为班费贡献吗?</h2>
@@ -191,8 +189,8 @@
                     if ( (xhr.status >= 200 && xhr.status < 300)
                     || (xhr.status === 304) ) {
                         var retval = this.response.newslist[0].reply
-                            .replace(/\{appellation\}/g, '大佬')
-                            .replace(/\{robotname\}/g, '小天');
+                            .replace(/\{appellation\}/g, 'sname')
+                            .replace(/\{robotname\}/g, 'uname');
                         
                         var hli = document.createElement('li');
                             hli.textContent = '感谢你的参与!已收录您的观点.';
