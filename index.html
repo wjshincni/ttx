@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta charset="UTF-8">
+<title>捣蛋鬼开导弹</title>
+<style>
+	html,body{
+    height: 100%;
+}
+*{
+    padding: 0;
+    margin: 0;
+}
+body {
+	text-align: center;
+    background-color: wheat;
+    overflow: hidden;
+}
+h1{
+    font-size: 40px;
+    margin-top: 50px;
+    font-family: "幼圆","宋体","微软雅黑";
+}
+span{
+	font-size: 30px;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: none;
+	float: inherit;
+	font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+h3{
+	font-size: 15px;
+    margin-left: 20px;
+    margin-top: none;
+    float: inherit;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+img,.active{
+    position: absolute;
+    top: 24%;
+    width: 24%;
+    transform: scale(0);
+    -webkit-transform: scale(0);
+    transition: all .4s ease-out;
+    -webkit-transition: all .4s ease-out;
+}
+.active{
+    transform: scale(1);
+    -webkit-transform: scale(1);
+}
+canvas,div{
+    position: absolute;
+    left: 50%;
+    width: 72%;
+    height: 72%;
+    transform: translate(-50%,0%);
+    -webkit-transform: translate(-50%,0%);/*居中*/
+    margin-top: 50px;
+}
+div{
+    z-index: 1;
+}
+#temp{
+    position: fixed;
+    top: 200%;
+    left: 200%;
+    transform: scale(0.1);
+    -webkit-transform: scale(0.1);
+}
+</style>
+</head>
+<body>
+<audio id="bgmusic" src="https://github.com/wjshincni/game1/blob/main/resourses/bgmusic.mp3?raw=true" autoplay hidden></audio>
+<h3>
+	<label for="randomNumber">输入最小值和最大值（还没做完）</label>
+	<br/>
+	<input type="text" id="minValue" placeholder="最小值"/>
+	<input type="text" id="maxValue" placeholder="最大值"/>
+	<button onclick="generateRandomNumber()">点我生成</button>
+	<input type="image" onclick="window.open('http://htmlpreview.github.io/?https://github.com/wjshincni/ttx/blob/main/survey.html','_blank')" src="resourses/bgmusic.png">
+	<p aria-readonly="true" id="result"></p>
+</h3>
+<span>SCORE:0</span>
+<span>HP:3</span>
+<span>Made By ttx</span>
+<div class="diShu">
+</div>
+<canvas></canvas>
+<img id="temp" src="resourses/ds.png">
+
+<script>
+function generateRandomNumber(){
+    var min = parseInt(document.getElementById("minValue").value); // 获取最小值并转换为整数
+    var max = parseInt(document.getElementById("maxValue").value); // 获取最大值并转换为整数
+    
+    if (isNaN(min) || isNaN(max)) { // 判断输入是否有效
+        document.getElementById("result").innerHTML = "请确保输入整数";
+    } else {
+        var randomNum = Math.floor((Math.random() * (max - min + 1))) + min; // 生成指定范围内的随机整数
+        document.getElementById("result").innerHTML = "捣蛋鬼的大小为:" + randomNum;
+		img.cubeSize = randomNum;
+    }
+}
+
+var canvas = document.getElementsByTagName("canvas")[0];
+canvas.width = 1000;
+canvas.height = 1000;
+var cubes = 3;
+var ctx = canvas.getContext("2d");
+ctx.fillStyle = "#d9bf9a";
+
+var areaSize = 1000/cubes;
+var cubeSize = areaSize*0.96;
+ctx.translate(areaSize*0.02,areaSize*0.02);
+var rats = [];
+var points;
+var hp;
+var interval;
+var t,t2;
+
+window.onload = function(){
+	drawPannel();
+	initGame();
+};
+
+function initGame(){
+	points = 0;
+	hp = 3;
+	interval = 100;
+	document.getElementsByTagName("span")[0].innerHTML = "SCORE:"+points;
+	document.getElementsByTagName("span")[1].innerHTML = "HP:"+hp;
+	document.getElementsByTagName("span")[2].innerHTML = "DIFFICULTY:"+interval;
+	t = setInterval(function(){
+		generateRats();
+		maintanceRats();
+	},interval);
+}
+function drawPannel(){
+	for(var i=0;i<cubes;i++){
+		for(var j=0;j<cubes;j++){
+
+			var img = new Image();
+			img.src = "resourses/ds.png";
+			img.style.left = i*33.33 + "%";
+			img.style.top = j*0.3333*canvas.clientHeight + "px";
+			img.addEventListener("mousedown",clicked);
+			img.addEventListener('touchstart', touched);
+			document.getElementsByTagName("div")[0].appendChild(img);
+			rats.push(img);
+		}
+	}
+}
+function touched(){
+	chosen(this);
+	var touch = event.touches[0];
+	var rect = canvas.getBoundingClientRect();
+	checkArea(touch.pageX - rect.left,touch.pageY - rect.top);
+}
+function clicked(){
+	chosen(this);
+	var rect = canvas.getBoundingClientRect();
+	checkArea(event.clientX - rect.left,event.clientY - rect.top);
+}
+function chosen(rat){
+	if(rat.className == "active"){
+		rat.classList.remove("active");
+		points ++;
+		document.getElementsByTagName("span")[0].innerHTML = "SCORE:"+points;
+		interval -= interval*0.03>2?interval*0.03:interval*0.015;
+		document.getElementsByTagName("span")[2].innerHTML = "DIFFICULTY:"+interval;
+	}
+}
+function generateRats(){//产生地鼠的方法
+	if(parseInt(Math.random()*100)%parseInt(((interval/12)>2?(interval/12):2))==0){
+		document.getElementsByTagName("span")[2].innerHTML = "DIFFICULTY:"+interval;
+		var ID = Math.ceil(Math.random()*8);
+		if(rats[ID].className == ""){
+			t2 = setTimeout(function(){
+				rats[ID].classList.add("active");
+				rats[ID].id = interval/4;
+			},500);
+		}
+	}
+}
+function maintanceRats(){//维护地鼠的方法
+	var activeRats = document.getElementsByClassName("active");//获取所有出现的地鼠
+	for(var i=0;i<activeRats.length;i++){//用id表示剩余时间
+		activeRats[i].id --;
+		if(activeRats[i].id<0){//如果到时间了
+			activeRats[i].classList.remove("active");//当前地鼠隐藏
+			hp --;//掉血
+			interval *= 1.2;//回退一点游戏难度
+			document.getElementsByTagName("span")[2].innerHTML = "DIFFICULTY:"+interval;
+			document.getElementsByTagName("span")[1].innerHTML = "HP:"+hp;//更新血量显示
+			if(hp == 0){
+				lose();
+			}
+		}
+	}
+}
+function lose(){//如果输了
+	clearInterval(t);//停止计时器，等待游戏重新开始
+	clearTimeout(t2);
+
+	setTimeout(function(){
+
+		alert("死废物在"+interval+"的难度(越小越难)下打了"+points+"个捣蛋鬼。");
+		for(var i=0;i<rats.length;i++){
+			rats[i].classList.remove("active");
+		}
+		setTimeout(function(){
+			initGame();
+		},500);
+	},10);
+}
+</script>
+
+</body>
+</html>
