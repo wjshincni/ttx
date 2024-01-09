@@ -1,0 +1,71 @@
+.text-container {
+    top: 5%;
+    position: relative;
+    height: 200px;
+    width: auto;
+    float: inherit;
+    justify-content: center;
+    margin-left: 25% ;
+}
+@font-face {
+    font-family: 'myFont2';
+    src: url('comic.ttf');
+    font-family: 'myFont3';
+    src: url('comicbd.ttf');
+    font-family: 'myFont4';
+    src: url('comici.ttf');
+}
+.slide-in {
+    font-family: myFont2,myFont3,myFont4;
+    font-size: 65px;
+    color: rgb(255, 209, 125);
+    position: absolute;
+    top: -10px;
+    animation: floatUpDown 1.5s infinite alternate;
+}
+@keyframes floatL{
+    0% {left: 10%;}
+    100% {left: 90%;}
+}
+@keyframes floatUpDown {
+    0% { top: -10px;}
+    100% { top: 8px;}
+}
+@keyframes floatR {
+    0% { top: 90%;}
+    100% {left: 10%;}
+}
+#exp1{
+    position: absolute;
+	color: rgb(240, 205, 205);
+	font-size: 20px;
+	z-index:1;
+    bottom: 0;
+    right: 0;
+    animation: floatL 5s infinite alternate;
+}
+#exp2{
+    position: absolute;
+	color: rgb(240, 205, 205);
+	font-size: 20px;
+	z-index:1;
+    top: 0;
+    right: 0;
+    animation: floatR 5s infinite alternate;
+}
+html,body{
+    height: 100%;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+.bg1{
+    position: fixed;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    padding: 0;
+    margin: 0;
+}
