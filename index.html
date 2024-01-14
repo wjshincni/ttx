@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10000分的奇迹</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            background-color: rgb(9, 6, 41);
+        }
+        .wp{
+            width: 200px;
+            height: 200px;
+            background: #04be02;
+            position: absolute;
+            left: 100px;
+            top: 100px;
+            border-radius: 100px;
+        }
+        .wp:hover{
+            box-shadow: 0 0 50px lightcyan inset,0 0 50px lightblue;
+        }
+        .wp:active{
+            box-shadow: 0 0 50px gold inset , 0 0 50px lightcoral;
+        }
+        .wt{
+            width: 200px;
+            height: 200px;
+            background:pink;
+            margin: 200px auto;
+        }
+        /* 设置容器元素的大小、边框等属性 */
+        .health-bar {
+            width: 300px; /* 设置容器宽度 */
+            height: 20px; /* 设置容器高度 */
+            border: 1px solid #ccc; /* 添加边框 */
+            margin: 0 auto;
+            border: #04be02 solid 3px;
+            border-radius: 20px;
+            box-shadow: 0 0 50px black;
+
+        }
+        /* 设置进度条的颜色及长度 */
+        .health-bar span {
+            display: block; /* 将span元素转换成块状元素 */
+            background-color: red; /* 设置进度条颜色 */
+            height: 100%; /* 设置进度条高度与容器相同 */
+        }
+        #text{
+            margin: 0 auto;
+            text-align: center;
+            text-shadow: none;
+            transition: ease 2s;
+            font-size: 50px;
+            font-family: 'Courier New', Courier, monospace;
+            color: aqua;
+        }
+        #text:hover{
+            text-shadow: 0 0 50px white, 0 0 100px gold;
+        }
+        #score{
+            left: 40%;
+            position: absolute;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            text-shadow: none;
+            transition: ease 2s;
+            font-size: 100px;
+            font-family: 'Courier New', Courier, monospace;
+            color: white;
+        }
+        #score:hover{
+            text-shadow: 0 0 50px red;
+        }
+        button{
+            opacity: 0;
+        }
+        button:hover{
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div id="text">
+        这是一个解密游戏,有点简陋但十分的难
+        拿得到10000分给你一台Rolls-Royce
+        其他无
+    </div>
+    <span id="score">已得:0分</span>
+    <div class="wp"></div>
+    <div class="wt"></div>
+    <div class="health-bar">
+        <span></span>
+        <button onclick="changehp()">修改血量</button>
+        <span id="hps"></span>
+    </div>
+</body>
+</html>
+<script>
+// 获取血条元素
+let hp = 100;
+let wc = hp*0.99;
+let score = 0;
+var healthBar = document.querySelector('.health-bar');
+var progressSpan = healthBar.querySelector('span');
+var hps = document.getElementById('hps');
+document.getElementById('hps').innerHTML = "剩余" + hp + "血量";
+
+// 模拟更新血量函数
+function changehp(){
+    var newHp = prompt("请输入新的血量值", "100"); // 提示用户输入新的数值
+    if (newHp != null && !isNaN(parseInt(newHp))) { // 判断输入是否有效且为数字
+        var numHp = parseInt(newHp); // 将输入的字符串转换为整数类型
+        hp = numHp;
+        document.getElementById('hps').innerHTML = "剩余" + hp + "血量";
+		updateHealth(percentage);
+    }else{
+        alert("无效的输入!请输入数字!");
+		hp= 100;
+        document.getElementById('hps').innerHTML = "剩余" + hp + "血量";
+    }
+
+}
+function updateHealth(percentage) {
+    // 计算并设置进度条的宽度
+    var barWidth = percentage * (healthBar.offsetWidth / 100);
+    progressSpan.style.width = barWidth + 'px';
+}
+
+let wt = document.querySelector('.wt');
+let wp = document.querySelector('.wp');
+wp.onmousedown = function(){
+    //求出坐标点距离元素左边和上边的距离
+    let diX = event.clientX - wp.offsetLeft;
+    let diY = event.clientY - wp.offsetTop;
+    console.log(diX,diY);
+    document.onmousemove = function(){
+        let oLeft = event.clientX - diX;
+        let oTop = event.clientY - diY;
+         if (oLeft<=0) {
+            oLeft=0
+        }
+        if (oTop<=0) {
+            oTop=0
+        }
+        let maxLeft = window.innerWidth-wp.offsetWidth;
+        let maxTop= window.innerHeight-wp.offsetHeight;
+        if (oLeft>=maxLeft) {
+            oLeft=maxLeft
+        }
+        if (oTop>=maxTop) {
+            oTop=maxTop
+        }
+        //设置元素定位位置
+        wp.style.left = oLeft + 'px';
+        wp.style.top = oTop + 'px';
+        
+        //碰撞检测
+        if (isCrash(wp,wt)) {
+            wt.style.background = '#6cc2dc';
+            hp-= wc;
+            document.getElementById('hps').innerHTML = "剩余" + hp + "血量";
+            score++;
+            document.getElementById('score').innerHTML = "已得:" + score + "分";
+            if (score >= 9999){
+                score = 9999;
+                wp.style.cursor = 'not-allowed';
+            }
+            updateHealth(hp);
+            if (hp<=0){
+                alert('你死了');
+                hp=100;
+                document.getElementById('hps').innerHTML = "剩余" + hp + "血量";
+                score = 0;
+            }
+        }else{
+            wt.style.background = 'pink';
+        }
+       
+    }
+document.onmouseup = function(){
+    document.onmousemove = null;
+}
+}
+ 
+//封装碰撞检测函数
+function isCrash(aDiv,bDiv){
+     let t1 = aDiv.offsetTop;
+     let r1 = aDiv.offsetLeft +aDiv.offsetWidth;
+     let b1 = aDiv.offsetTop +aDiv.offsetHeight;
+     let l1 = aDiv.offsetLeft;
+ 
+     let t2 = bDiv.offsetTop;
+     let r2 = bDiv.offsetLeft +bDiv.offsetWidth;
+     let b2 = bDiv.offsetTop +bDiv.offsetHeight;
+     let l2 = bDiv.offsetLeft;
+     //判断碰撞
+     if (t1>b2||r1<l2||b1<t2||l1>r2) {  //不碰撞的情况
+        return false;
+     }else{
+        return true; //碰撞的情况
+     }
+}
+</script>
