@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>中考倒计时</title>
+		<style>
+			*{padding: 0;margin: 0;}
+			html,body{height: 100%;background-color: black;}
+			body{text-align: center;}
+			span::selection{appearance: none;}
+			#timeCount{
+				position: relative;
+				top: 20%;
+				color: white;
+				margin: 0 auto;
+				font-size: 7rem;
+				font-weight: 900;
+			}
+		</style>
+		<script>
+			function countdown(endTime) {
+			  const countDownDate = new Date(endTime).getTime();
+			  const now = new Date().getTime();
+			  const distance = countDownDate - now;
+			 
+			  if (distance < 0 && distance >= 2000) {
+			    clearInterval(intervalId);
+			    document.getElementById('timeCount').innerHTML = "中考已开始<br>期待你的好发挥吧！";
+			    return;
+			  }
+			  else if (distance >= 0){
+				const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+				const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+				const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+				const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+				const extraSeconds = Math.floor((distance % 1000) / 100);
+				document.getElementById('timeCount').innerHTML = "笑↗笑↘温馨提示你<br>距离中考还剩<br>" + days + "天" + hours + "小时" + minutes + "分钟" + seconds + "秒" + extraSeconds + '"';
+			  }
+			  else{
+				document.getElementById('timeCount').innerHTML = "中考结束了<br>祈祷你的好成绩！";
+			  }
+			}
+			 
+			// 中考开始时间
+			const endTime = 'June 15, 2024 9:00:00';
+			 
+			// 每秒更新一次倒计时
+			const intervalId = setInterval(countdown, 100, endTime);
+		</script>
+	</head>
+	<body>
+		<span id="timeCount">[眼睛]中考倒计时<br>加油！（哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈）</span>
+	
+</body></html>
