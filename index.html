@@ -3,26 +3,60 @@
 		<title>中考倒计时</title>
 		<style>
 			*{padding: 0;margin: 0;}
-			html,body{height: 100%;background-color: black;}
+			html,body{height: 100%;background-color: black;transition: 2s;}
 			body{text-align: center;}
-			span::selection{appearance: none;}
-			#timeCount{
+			*::selection{appearance: none;}
+			div{
 				position: relative;
-				top: 20%;
+				top: 15%;
 				color: white;
 				margin: 0 auto;
 				font-size: 7rem;
 				font-weight: 900;
+				transition: 2s;
+			}
+			button{
+				width: 80px;
+				height: 80px;
+				margin: 0 auto;
+				position: relative;
+				background-image: url(day.png);
+				border-radius: 100%;
+				transition: 1s;
+				border: none;
+			}
+			button:hover{
+				transform: rotate(720deg);
+				box-shadow: 0 0 10px gold;
 			}
 		</style>
 		<script>
+			function changeTheme(){
+				var bg = document.getElementById('bg'),
+					span = document.getElementById('fixed'),
+					btn = document.getElementById('btn');
+				if (bg.style.backgroundColor == "black"){
+					btn.style.backgroundImage = "url(night.png)";
+					bg.style.backgroundColor = "white";
+					setTimeout(function(){
+						span.style.color = "black";
+					},2000)
+				}
+				else{
+					btn.style.backgroundImage = "url(day.png)";
+					bg.style.backgroundColor = "black";
+					setTimeout(function(){
+						span.style.color = "white";
+					},2000)
+				}
+			}
+			
 			function countdown(endTime) {
 			  const countDownDate = new Date(endTime).getTime();
 			  const now = new Date().getTime();
 			  const distance = countDownDate - now;
 			 
 			  if (distance < 0 && distance >= 2000) {
-			    clearInterval(intervalId);
 			    document.getElementById('timeCount').innerHTML = "中考已开始<br>期待你的好发挥吧！";
 			    return;
 			  }
@@ -32,10 +66,12 @@
 				const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 				const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 				const extraSeconds = Math.floor((distance % 1000) / 100);
-				document.getElementById('timeCount').innerHTML = "笑↗笑↘温馨提示你<br>距离中考还剩<br>" + days + "天" + hours + "小时" + minutes + "分钟" + seconds + "秒" + extraSeconds + '"';
+				document.getElementById('timeCount').innerHTML = days + "天" + hours + "小时" + minutes + "分钟" + seconds + "秒" + extraSeconds + '"';
 			  }
 			  else{
 				document.getElementById('timeCount').innerHTML = "中考结束了<br>祈祷你的好成绩！";
+				clearInterval(intervalId);
+				return;
 			  }
 			}
 			 
@@ -46,7 +82,10 @@
 			const intervalId = setInterval(countdown, 100, endTime);
 		</script>
 	</head>
-	<body>
-		<span id="timeCount">[眼睛]中考倒计时<br>加油！（哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈）</span>
-	
+	<body id="bg">
+		<button id="btn" onclick="changeTheme()"></button>
+		<div id="fixed">
+			笑↗笑↘温馨提示你<br>距离中考还剩<br>
+			<span id="timeCount"></span>
+		</div>
 </body></html>
