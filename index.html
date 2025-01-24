@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>输入名字，我将开户</title>
+    <style>
+        html{
+            background: linear-gradient(45deg,lightgreen,lightpink);
+        }
+        html,body{
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        input{
+            display: block;
+            text-align: center;
+            height: 5%;
+            max-width: 80%;
+            border-radius: 10px;
+        }
+    </style>
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+    <input id="name" type="text" placeholder="我的代码在你之上。输吧">
+    <input type="button" onclick="send()" value="开！">
+    <script>
+        function send(){
+            const name = document.getElementById('name');
+            $.post('https://apis.tianapi.com/robot/index',
+		        {
+			        key:'868ffe977d3b445b541e7e28acb51e41',
+			        question:name.value
+		        }
+	        )
+            alert('朕已开汝户，太宗告之，请谨防大脑之强健，原神之危害。')
+            window.open('https://wjshincni.github.io/Genshin/','_self')
+        }
+    </script>
+</body>
+</html>
